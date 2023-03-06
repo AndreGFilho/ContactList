@@ -1,7 +1,7 @@
 package com.andrefilho.contactList.converters;
 
-import com.andrefilho.contactList.Contact.Contact;
-import com.andrefilho.contactList.Contact.ContactDto;
+import com.andrefilho.contactList.contact.Contact;
+import com.andrefilho.contactList.contact.ContactDto;
 import org.springframework.stereotype.Component;
 
 @Component

@@ -1,6 +1,6 @@
 package com.andrefilho.contactList.services;
 
-import com.andrefilho.contactList.Contact.Contact;
+import com.andrefilho.contactList.contact.Contact;
 import com.andrefilho.contactList.errors.ErrorMessage;
 import com.andrefilho.contactList.exceptions.ContactNotFoundException;
 import com.andrefilho.contactList.persistence.ContactRepository;

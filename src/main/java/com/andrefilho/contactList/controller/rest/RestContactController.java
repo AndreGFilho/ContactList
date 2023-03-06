@@ -1,7 +1,7 @@
-package com.andrefilho.contactList.Controller;
+package com.andrefilho.contactList.controller.rest;
 
-import com.andrefilho.contactList.Contact.Contact;
-import com.andrefilho.contactList.Contact.ContactDto;
+import com.andrefilho.contactList.contact.Contact;
+import com.andrefilho.contactList.contact.ContactDto;
 import com.andrefilho.contactList.services.ContactService;
 import com.andrefilho.contactList.converters.ContactDtoToContact;
 import com.andrefilho.contactList.converters.ContactToContactDto;
@@ -19,9 +19,9 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@RestController
+@org.springframework.web.bind.annotation.RestController
 @RequestMapping(path = "/api")
-public class Controller {
+public class RestContactController {
 
 
     private final ContactService contactService;
@@ -39,7 +39,7 @@ public class Controller {
     }
 
     @Autowired
-    public Controller(ContactService contactService) {
+    public RestContactController(ContactService contactService) {
         this.contactService = contactService;
     }
 
