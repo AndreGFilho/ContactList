@@ -30,14 +30,16 @@ public class ContactService {
     }
 
     @Transactional
-    public void updateContact(Long contactId, String name, String email, LocalDate dob, String address, String country) {
+    public void updateContact(Long contactId, Contact contact) {
 
-        Contact contact = contactRepository.getReferenceById(contactId);
+        Contact contact2 = contactRepository.getReferenceById(contactId);
 
-        contact.setName(name);
-        contact.setEmail(email);
-        contact.setAddress(address);
-        contact.setCountry(country);
-        contact.setDateOfBirth(dob);
+        contact2.setName(contact.getName());
+        contact2.setEmail(contact.getEmail());
+        contact2.setAddress(contact.getAddress());
+        contact2.setCountry(contact.getCountry());
+        contact2.setDateOfBirth(contact.getDateOfBirth());
     }
+
+    public void deleteContact(long contactID)
 }

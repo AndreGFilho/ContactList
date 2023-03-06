@@ -33,13 +33,18 @@ public class Controller {
     @PutMapping(path = "/{id}")
     public void updateContact(
             @PathVariable("id") Long contactId,
-            @RequestParam(required = false) String name,
-            @RequestParam(required = false) String email,
-            @RequestParam(required = false) LocalDate dob,
-            @RequestParam(required = false) String address,
-            @RequestParam(required = false) String country) {
-        contactService.updateContact(contactId, name, email, dob, address, country);
+            @RequestBody Contact contact) {
+
+
+        contactService.updateContact(contactId, contact);
     }
+
+    @DeleteMapping(path = "/{id}")
+    public void deleteContact(
+            @PathVariable("id") Long contactId){
+        contactService.
+    }
+    )
 
 
 }
