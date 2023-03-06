@@ -30,7 +30,6 @@ public class ContactService {
         return contactRepository.save(contact);
     }
 
-    @Transactional
     public void updateContact(Contact contact) {
 
         contactRepository.save(contact);
