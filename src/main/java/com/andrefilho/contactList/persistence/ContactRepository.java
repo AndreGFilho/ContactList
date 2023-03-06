@@ -1,4 +1,4 @@
-package com.andrefilho.contactList;
+package com.andrefilho.contactList.persistence;
 
 import com.andrefilho.contactList.Contact.Contact;
 import org.springframework.data.jpa.repository.JpaRepository;

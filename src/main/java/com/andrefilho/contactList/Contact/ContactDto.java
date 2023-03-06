@@ -1,55 +1,31 @@
 package com.andrefilho.contactList.Contact;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Transient;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
-import java.time.Period;
+import javax.validation.constraints.*;
 
-@Entity
-public class Contact {
-    @Id
-    @SequenceGenerator(
-            name = "contact_sequence",
-            sequenceName = "contact_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "contact_sequence"
-    )
+public class ContactDto {
     private Long id;
+    @NotNull(message = "Name is mandatory.")
+    @NotBlank(message = "Name is mandatory.")
+    @Size(min = 3, max = 64)
     private String name;
+    @Email
+    @NotBlank(message = "Email is mandatory.")
     private String email;
+
+    @NotNull(message = "Date of Birth is mandatory.")
+    @NotBlank(message = "Date of Birth is mandatory.")
+    @Past
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfBirth;
     private String address;
     private String country;
+    @Pattern(regexp = "^\\+?[0-9]*$", message = "Phone number contains invalid characters")
+    @Size(min = 9, max = 16)
     private String phone;
-    @Transient
-    private int age;
-
-    public Contact() {
-    }
-
-    public Contact(String name, String email, LocalDate dateOfBirth, String address, String country, String phone) {
-        this.name = name;
-        this.email = email;
-        this.dateOfBirth = dateOfBirth;
-        this.address = address;
-        this.country = country;
-        this.phone = phone;
-    }
-
-    public Contact(Long id, String name, String email, LocalDate dateOfBirth, String address, String country, String phone, int age) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.dateOfBirth = dateOfBirth;
-        this.address = address;
-        this.country = country;
-        this.phone = phone;
-        this.age = age;
-    }
-
 
     public Long getId() {
         return id;
@@ -107,24 +83,15 @@ public class Contact {
         this.phone = phone;
     }
 
-    public int getAge() {
-        return dateOfBirth == null ? null : Period.between(this.dateOfBirth, LocalDate.now()).getYears();
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
     @Override
     public String toString() {
-        return "Contact{" +
+        return "ContactDto{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", dateOfBirth=" + dateOfBirth +
                 ", address='" + address + '\'' +
                 ", country='" + country + '\'' +
-                ", age=" + age +
                 '}';
     }
 }
