@@ -17,6 +17,7 @@ public class ContactToContactDto extends AbstractConverter<Contact, ContactDto>{
         contactDto.setAddress(contact.getAddress());
         contactDto.setCountry(contact.getCountry());
         contactDto.setPhone(contact.getPhone());
+        contactDto.setAge(contact.getAge());
 
         return contactDto;
     }

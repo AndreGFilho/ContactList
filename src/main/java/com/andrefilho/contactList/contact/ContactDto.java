@@ -25,6 +25,7 @@ public class ContactDto {
     @Pattern(regexp = "^\\+?[0-9]*$", message = "Phone number contains invalid characters")
     @Size(min = 9, max = 16)
     private String phone;
+    private Integer age;
 
     public Long getId() {
         return id;
@@ -80,6 +81,14 @@ public class ContactDto {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
     }
 
     @Override

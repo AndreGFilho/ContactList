@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ContactService {
@@ -41,5 +42,19 @@ public class ContactService {
             throw new ContactNotFoundException(ErrorMessage.CONTACT_NOT_FOUND);
         }
         contactRepository.deleteById(contactID);
+    }
+
+    @Transactional
+    public Contact save(Contact contact) {
+        return contactRepository.save(contact);
+    }
+
+
+    @Transactional
+    public void delete(long id) throws ContactNotFoundException {
+        Contact contact = contactRepository.findById(id)
+                .orElseThrow();
+
+        contactRepository.deleteById(id);
     }
 }
