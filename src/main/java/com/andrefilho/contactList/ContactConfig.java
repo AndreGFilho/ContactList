@@ -1,7 +1,7 @@
 package com.andrefilho.contactList;
 
-import com.andrefilho.contactList.persistence.model.Contact;
-import com.andrefilho.contactList.persistence.jpa.ContactRepository;
+import com.andrefilho.contactList.persistence.model.ContactPerson;
+import com.andrefilho.contactList.persistence.jpa.PersonRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,9 +14,9 @@ import java.util.List;
 public class ContactConfig {
 
     @Bean
-    CommandLineRunner commandLineRunner(ContactRepository repository){
+    CommandLineRunner commandLineRunner(PersonRepository repository){
         return args -> {
-            Contact andre = new Contact(
+            ContactPerson andre = new ContactPerson(
                     "Andre",
                     "Filho",
                     "email@gmail.com",
@@ -25,7 +25,7 @@ public class ContactConfig {
                     "country",
                     null
             );
-            Contact bianca = new Contact(
+            ContactPerson bianca = new ContactPerson(
                     "Bianca",
                     "Gassman",
                     "emailBianca@gmail.com",

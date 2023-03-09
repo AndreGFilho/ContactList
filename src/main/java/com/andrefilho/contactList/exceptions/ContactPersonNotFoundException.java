@@ -2,8 +2,8 @@ package com.andrefilho.contactList.exceptions;
 
 import com.andrefilho.contactList.errors.ErrorMessage;
 
-public class ContactNotFoundException extends CustomExceptions{
-    public ContactNotFoundException(String message) {
+public class ContactPersonNotFoundException extends CustomExceptions{
+    public ContactPersonNotFoundException(String message) {
         super(ErrorMessage.CONTACT_NOT_FOUND);
     }
 }

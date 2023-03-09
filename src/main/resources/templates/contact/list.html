@@ -13,18 +13,19 @@
         <table class="table table-striped">
             <tr>
                 <th>Id</th>
-                <th>Name</th>
+                <th>First Name</th>
+                <th>Last Name</th>
                 <th>Show</th>
                 <th>Edit</th>
                 <th>Delete</th>
             </tr>
-            <tr th:each="contact : ${contacts}">
-                <td th:text="${contact.id}"></td>
-                <td th:text="${contact.firstName}"></td>
-                <td th:text="${contact.lastName}"></td>
-                <td><a class="btn btn-success" th:href="@{'/contacts/' + ${contact.id}}">View</a></td>
-                <td><a class="btn btn-warning" th:href="@{'/contacts/' + ${contact.id} + '/edit'}">Edit</a></td>
-                <td><a class="btn btn-danger" th:href="@{'/contacts/' + ${contact.id} + '/delete'}">Delete</a></td>
+            <tr th:each="contactPerson : ${contacts}">
+                <td th:text="${contactPerson.id}"></td>
+                <td th:text="${contactPerson.firstName}"></td>
+                <td th:text="${contactPerson.lastName}"></td>
+                <td><a class="btn btn-success" th:href="@{'/contacts/' + ${contactPerson.id}}">View</a></td>
+                <td><a class="btn btn-warning" th:href="@{'/contacts/' + ${contactPerson.id} + '/edit'}">Edit</a></td>
+                <td><a class="btn btn-danger" th:href="@{'/contacts/' + ${contactPerson.id} + '/delete'}">Delete</a></td>
             </tr>
         </table>
 

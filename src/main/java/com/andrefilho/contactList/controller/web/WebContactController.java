@@ -1,11 +1,11 @@
 package com.andrefilho.contactList.controller.web;
 
-import com.andrefilho.contactList.persistence.model.Contact;
-import com.andrefilho.contactList.command.ContactDto;
-import com.andrefilho.contactList.converters.ContactDtoToContact;
-import com.andrefilho.contactList.converters.ContactToContactDto;
-import com.andrefilho.contactList.exceptions.ContactNotFoundException;
-import com.andrefilho.contactList.services.ContactService;
+import com.andrefilho.contactList.command.ContactPersonDto;
+import com.andrefilho.contactList.persistence.model.ContactPerson;
+import com.andrefilho.contactList.converters.ContactPersonDtoToContactPerson;
+import com.andrefilho.contactList.converters.ContactPersonToContactPersonDto;
+import com.andrefilho.contactList.exceptions.ContactPersonNotFoundException;
+import com.andrefilho.contactList.services.PersonService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,37 +20,37 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping(path = "/contacts")
 public class WebContactController {
 
-    private ContactService contactService;
-    private ContactToContactDto contactToContactDto;
-    private ContactDtoToContact contactDtoToContact;
+    private PersonService personService;
+    private ContactPersonToContactPersonDto contactPersonToContactPersonDto;
+    private ContactPersonDtoToContactPerson contactPersonDtoToContactPerson;
 
     @Autowired
-    public void setContactService(ContactService contactService) {
-        this.contactService = contactService;
+    public void setContactService(PersonService personService) {
+        this.personService = personService;
     }
 
     @Autowired
-    public void setContactToContactDto(ContactToContactDto contactToContactDto) {
-        this.contactToContactDto = contactToContactDto;
+    public void setContactToContactDto(ContactPersonToContactPersonDto contactPersonToContactPersonDto) {
+        this.contactPersonToContactPersonDto = contactPersonToContactPersonDto;
     }
 
     @Autowired
-    public void setContactDtoToContact(ContactDtoToContact contactDtoToContact) {
-        this.contactDtoToContact = contactDtoToContact;
+    public void setContactDtoToContact(ContactPersonDtoToContactPerson contactPersonDtoToContactPerson) {
+        this.contactPersonDtoToContactPerson = contactPersonDtoToContactPerson;
     }
 
     @GetMapping(path = {"/list", "/", ""})
     public String listContacts(Model model){
-        model.addAttribute("contacts", contactToContactDto.convert(contactService.list()));
+        model.addAttribute("contacts", contactPersonToContactPersonDto.convert(personService.list()));
         return "contact/list";
     }
     @GetMapping (path = "/{id}")
     public String showContact(@PathVariable long id, Model model) throws Exception {
 
-        Contact contact = contactService.getContact(id);
+        ContactPerson contactPerson = personService.getContact(id);
 
         // command objects for customer show view
-        model.addAttribute("contact", contactToContactDto.convert(contact));
+        model.addAttribute("contact", contactPersonToContactPersonDto.convert(contactPerson));
         return "contact/show";
 
 
@@ -71,20 +71,20 @@ public class WebContactController {
     }
     @RequestMapping(method = RequestMethod.GET, path = "/add")
     public String addContact(Model model) {
-        model.addAttribute("contact", new ContactDto());
+        model.addAttribute("contact", new ContactPersonDto());
         return "contact/add-update";
     }
     @PostMapping(path = {"/", ""}, params = "action=save")
-    public String saveCustomer(@Valid @ModelAttribute("contact") ContactDto contactDto, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model){
+    public String saveCustomer(@Valid @ModelAttribute("contact") ContactPersonDto contactPersonDto, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model){
         if (bindingResult.hasErrors()){
             return "contact/add-update";
         }
 
-        Contact savedContact = contactService.save(contactDtoToContact.convert(contactDto));
+        ContactPerson savedContactPerson = personService.save(contactPersonDtoToContactPerson.convert(contactPersonDto));
 
-        redirectAttributes.addFlashAttribute("lastAction", "Saved " + savedContact.getFirstName());
+        redirectAttributes.addFlashAttribute("lastAction", "Saved " + savedContactPerson.getFirstName());
 
-        return "redirect:/contacts/" + savedContact.getId();
+        return "redirect:/contacts/" + savedContactPerson.getId();
     }
 
     @PostMapping(path = {"/", ""}, params = "action=cancel")
@@ -93,15 +93,15 @@ public class WebContactController {
     }
     @RequestMapping(method = RequestMethod.GET, path = "/{id}/edit")
     public String editCustomer(@PathVariable Integer id, Model model) {
-        model.addAttribute("contact", contactToContactDto.convert(contactService.getContact(id)));
+        model.addAttribute("contact", contactPersonToContactPersonDto.convert(personService.getContact(id)));
         return "contact/add-update";
     }
     @RequestMapping(method = RequestMethod.GET, path = "{id}/delete")
-    public String deleteCustomer(@PathVariable Integer id, RedirectAttributes redirectAttributes) throws ContactNotFoundException {
-        Contact contact = contactService.getContact(id);
+    public String deleteCustomer(@PathVariable Integer id, RedirectAttributes redirectAttributes) throws ContactPersonNotFoundException {
+        ContactPerson contactPerson = personService.getContact(id);
 
-        contactService.delete(id);
-        redirectAttributes.addFlashAttribute("lastAction", "Deleted " + contact.getFirstName());
+        personService.delete(id);
+        redirectAttributes.addFlashAttribute("lastAction", "Deleted " + contactPerson.getFirstName());
         return "redirect:/contacts";
     }
 

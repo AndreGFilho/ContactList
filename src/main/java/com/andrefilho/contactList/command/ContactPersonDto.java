@@ -1,44 +1,50 @@
-package com.andrefilho.contactList.persistence.model;
+package com.andrefilho.contactList.command;
 
-import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
+import org.springframework.format.annotation.DateTimeFormat;
+
 
 import java.time.LocalDate;
-import java.time.Period;
 
-@Entity
-public class Contact extends AbstractModel{
-
+public class ContactPersonDto {
+    private Long id;
+    @NotNull(message = "First Name is mandatory.")
+    @NotBlank(message = "First Name is mandatory.")
+    @Size(min = 3, max = 64)
     private String firstName;
+    @NotNull(message = "First Name is mandatory.")
+    @NotBlank(message = "First Name is mandatory.")
+    @Size(min = 3, max = 64)
     private String lastName;
+    @Email
+    @NotBlank(message = "Email is mandatory.")
     private String email;
+
+    @NotNull(message = "Date of Birth is mandatory.")
+    @Past
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfBirth;
     private String address;
     private String country;
+    @Pattern(regexp = "^\\+?[0-9]*$", message = "Phone number contains invalid characters")
+    @Size(min = 9, max = 16)
     private String phone;
-    @Transient
-    private int age;
+    private Integer age;
 
-    public Contact() {
+    public Long getId() {
+        return id;
     }
 
-    public Contact(String firstName, String lastName, String email, LocalDate dateOfBirth, String address, String country, String phone) {
-        this.firstName = firstName;
-        this.lastName =lastName;
-        this.email = email;
-        this.dateOfBirth = dateOfBirth;
-        this.address = address;
-        this.country = country;
-        this.phone = phone;
+    public void setId(Long id) {
+        this.id = id;
     }
-
-
 
     public String getFirstName() {
         return firstName;
     }
 
-    public void setFirstName(String name) {
-        this.firstName = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getLastName() {
@@ -89,13 +95,18 @@ public class Contact extends AbstractModel{
         this.phone = phone;
     }
 
-    public int getAge() {
-        return dateOfBirth == null ? null : Period.between(this.dateOfBirth, LocalDate.now()).getYears();
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
     }
 
     @Override
     public String toString() {
-        return "Contact{" +
+        return "ContactPersonDto{" +
+                "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +

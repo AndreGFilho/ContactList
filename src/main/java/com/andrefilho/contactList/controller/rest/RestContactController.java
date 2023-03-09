@@ -1,11 +1,11 @@
 package com.andrefilho.contactList.controller.rest;
 
-import com.andrefilho.contactList.persistence.model.Contact;
-import com.andrefilho.contactList.command.ContactDto;
-import com.andrefilho.contactList.services.ContactService;
-import com.andrefilho.contactList.converters.ContactDtoToContact;
-import com.andrefilho.contactList.converters.ContactToContactDto;
-import com.andrefilho.contactList.exceptions.ContactNotFoundException;
+import com.andrefilho.contactList.command.ContactPersonDto;
+import com.andrefilho.contactList.persistence.model.ContactPerson;
+import com.andrefilho.contactList.services.PersonService;
+import com.andrefilho.contactList.converters.ContactPersonDtoToContactPerson;
+import com.andrefilho.contactList.converters.ContactPersonToContactPersonDto;
+import com.andrefilho.contactList.exceptions.ContactPersonNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -24,57 +24,57 @@ import java.util.stream.Collectors;
 public class RestContactController {
 
 
-    private final ContactService contactService;
-    private ContactToContactDto contactToContactDto;
-    private ContactDtoToContact contactDtoToContact;
+    private final PersonService personService;
+    private ContactPersonToContactPersonDto contactPersonToContactPersonDto;
+    private ContactPersonDtoToContactPerson contactPersonDtoToContactPerson;
 
     @Autowired
-    public void setContactToContactDto(ContactToContactDto contactToContactDto) {
-        this.contactToContactDto = contactToContactDto;
+    public void setContactToContactDto(ContactPersonToContactPersonDto contactPersonToContactPersonDto) {
+        this.contactPersonToContactPersonDto = contactPersonToContactPersonDto;
     }
 
     @Autowired
-    public void setContactDtoToContact(ContactDtoToContact contactDtoToContact) {
-        this.contactDtoToContact = contactDtoToContact;
+    public void setContactDtoToContact(ContactPersonDtoToContactPerson contactPersonDtoToContactPerson) {
+        this.contactPersonDtoToContactPerson = contactPersonDtoToContactPerson;
     }
 
     @Autowired
-    public RestContactController(ContactService contactService) {
-        this.contactService = contactService;
+    public RestContactController(PersonService personService) {
+        this.personService = personService;
     }
 
     @GetMapping(path = {"/contacts", "","/"})
-    public ResponseEntity<List<ContactDto>> listContacts() {
-        List<ContactDto> contactDtos = contactService.list().stream()
-                .map(contact -> contactToContactDto.convert(contact))
+    public ResponseEntity<List<ContactPersonDto>> listContacts() {
+        List<ContactPersonDto> contactPersonDtos = personService.list().stream()
+                .map(contact -> contactPersonToContactPersonDto.convert(contact))
                 .collect(Collectors.toList());
 
-        return new ResponseEntity<>(contactDtos, HttpStatus.OK);
+        return new ResponseEntity<>(contactPersonDtos, HttpStatus.OK);
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<ContactDto> getContact(
+    public ResponseEntity<ContactPersonDto> getContact(
             @PathVariable("id") Long contactId
     ) {
-        Contact contact = contactService.getContact(contactId);
+        ContactPerson contactPerson = personService.getContact(contactId);
 
-        if (contact == null) {
+        if (contactPerson == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(contactToContactDto.convert(contact), HttpStatus.OK);
+        return new ResponseEntity<>(contactPersonToContactPersonDto.convert(contactPerson), HttpStatus.OK);
 
     }
 
 
     @PostMapping(path = {"/","","/addContact"})
-    public ResponseEntity<?> registerContact(@Valid @RequestBody ContactDto contactDto, BindingResult bindingResult, UriComponentsBuilder uriComponentsBuilder) {
-        if (bindingResult.hasErrors() || contactDto.getId() != null) {
+    public ResponseEntity<?> registerContact(@Valid @RequestBody ContactPersonDto contactPersonDto, BindingResult bindingResult, UriComponentsBuilder uriComponentsBuilder) {
+        if (bindingResult.hasErrors() || contactPersonDto.getId() != null) {
             return new ResponseEntity<>((HttpStatus.BAD_REQUEST));
         }
 
-        Contact savedContact = contactService.addNewContact(contactDtoToContact.convert(contactDto));
+        ContactPerson savedContactPerson = personService.addNewContact(contactPersonDtoToContactPerson.convert(contactPersonDto));
 
-        UriComponents uriComponents = uriComponentsBuilder.path("/api/" + savedContact.getId()).build();
+        UriComponents uriComponents = uriComponentsBuilder.path("/api/" + savedContactPerson.getId()).build();
 
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(uriComponents.toUri());
@@ -84,37 +84,37 @@ public class RestContactController {
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<ContactDto> updateContact(
+    public ResponseEntity<ContactPersonDto> updateContact(
             @PathVariable("id") Long contactId,
-            @Valid @RequestBody ContactDto contactDto,
+            @Valid @RequestBody ContactPersonDto contactPersonDto,
             BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        if (contactDto.getId() != null && !contactDto.getId().equals(contactId)){
+        if (contactPersonDto.getId() != null && !contactPersonDto.getId().equals(contactId)){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        if (contactService.getContact(contactId) == null){
+        if (personService.getContact(contactId) == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        contactDto.setId(contactId);
+        contactPersonDto.setId(contactId);
 
-        contactService.save(contactDtoToContact.convert(contactDto));
+        personService.save(contactPersonDtoToContactPerson.convert(contactPersonDto));
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<ContactDto> deleteContact(
+    public ResponseEntity<ContactPersonDto> deleteContact(
             @PathVariable("id") Long contactId) {
 
         try {
-            contactService.delete(contactId);
+            personService.delete(contactId);
             return new ResponseEntity<>(HttpStatus.ACCEPTED);
 
-        } catch (ContactNotFoundException e){
+        } catch (ContactPersonNotFoundException e){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
     }
