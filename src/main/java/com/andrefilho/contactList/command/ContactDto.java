@@ -1,4 +1,4 @@
-package com.andrefilho.contactList.contact;
+package com.andrefilho.contactList.command;
 
 import jakarta.validation.constraints.*;
 import org.springframework.format.annotation.DateTimeFormat;

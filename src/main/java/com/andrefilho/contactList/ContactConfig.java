@@ -1,7 +1,7 @@
 package com.andrefilho.contactList;
 
-import com.andrefilho.contactList.contact.Contact;
-import com.andrefilho.contactList.persistence.ContactRepository;
+import com.andrefilho.contactList.persistence.model.Contact;
+import com.andrefilho.contactList.persistence.jpa.ContactRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

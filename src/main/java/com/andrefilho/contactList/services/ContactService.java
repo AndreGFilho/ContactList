@@ -1,9 +1,9 @@
 package com.andrefilho.contactList.services;
 
-import com.andrefilho.contactList.contact.Contact;
+import com.andrefilho.contactList.persistence.model.Contact;
 import com.andrefilho.contactList.errors.ErrorMessage;
 import com.andrefilho.contactList.exceptions.ContactNotFoundException;
-import com.andrefilho.contactList.persistence.ContactRepository;
+import com.andrefilho.contactList.persistence.jpa.ContactRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

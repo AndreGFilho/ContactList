@@ -1,7 +1,7 @@
 package com.andrefilho.contactList.controller.web;
 
-import com.andrefilho.contactList.contact.Contact;
-import com.andrefilho.contactList.contact.ContactDto;
+import com.andrefilho.contactList.persistence.model.Contact;
+import com.andrefilho.contactList.command.ContactDto;
 import com.andrefilho.contactList.converters.ContactDtoToContact;
 import com.andrefilho.contactList.converters.ContactToContactDto;
 import com.andrefilho.contactList.exceptions.ContactNotFoundException;

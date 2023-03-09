@@ -1,4 +1,4 @@
-package com.andrefilho.contactList.contact;
+package com.andrefilho.contactList.persistence.model;
 
 import jakarta.persistence.*;
 
@@ -6,18 +6,8 @@ import java.time.LocalDate;
 import java.time.Period;
 
 @Entity
-public class Contact {
-    @Id
-    @SequenceGenerator(
-            name = "contact_sequence",
-            sequenceName = "contact_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "contact_sequence"
-    )
-    private Long id;
+public class Contact extends AbstractModel{
+
     private String firstName;
     private String lastName;
     private String email;
@@ -41,26 +31,7 @@ public class Contact {
         this.phone = phone;
     }
 
-    public Contact(Long id, String firstName, String lastName, String email, LocalDate dateOfBirth, String address, String country, String phone, int age) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.dateOfBirth = dateOfBirth;
-        this.address = address;
-        this.country = country;
-        this.phone = phone;
-        this.age = age;
-    }
 
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getFirstName() {
         return firstName;
@@ -125,7 +96,6 @@ public class Contact {
     @Override
     public String toString() {
         return "Contact{" +
-                "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
