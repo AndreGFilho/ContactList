@@ -18,6 +18,7 @@ public class ContactConfig {
         return args -> {
             Contact andre = new Contact(
                     "Andre",
+                    "Filho",
                     "email@gmail.com",
                     LocalDate.of(2010, Month.APRIL,12),
                     "address",
@@ -26,6 +27,7 @@ public class ContactConfig {
             );
             Contact bianca = new Contact(
                     "Bianca",
+                    "Gassman",
                     "emailBianca@gmail.com",
                     LocalDate.of(2000, Month.JANUARY,22),
                     "address2",

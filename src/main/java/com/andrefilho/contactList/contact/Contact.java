@@ -18,7 +18,8 @@ public class Contact {
             generator = "contact_sequence"
     )
     private Long id;
-    private String name;
+    private String firstName;
+    private String lastName;
     private String email;
     private LocalDate dateOfBirth;
     private String address;
@@ -30,8 +31,9 @@ public class Contact {
     public Contact() {
     }
 
-    public Contact(String name, String email, LocalDate dateOfBirth, String address, String country, String phone) {
-        this.name = name;
+    public Contact(String firstName, String lastName, String email, LocalDate dateOfBirth, String address, String country, String phone) {
+        this.firstName = firstName;
+        this.lastName =lastName;
         this.email = email;
         this.dateOfBirth = dateOfBirth;
         this.address = address;
@@ -39,9 +41,10 @@ public class Contact {
         this.phone = phone;
     }
 
-    public Contact(Long id, String name, String email, LocalDate dateOfBirth, String address, String country, String phone, int age) {
+    public Contact(Long id, String firstName, String lastName, String email, LocalDate dateOfBirth, String address, String country, String phone, int age) {
         this.id = id;
-        this.name = name;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
         this.dateOfBirth = dateOfBirth;
         this.address = address;
@@ -59,12 +62,20 @@ public class Contact {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String name) {
+        this.firstName = name;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getEmail() {
@@ -115,11 +126,13 @@ public class Contact {
     public String toString() {
         return "Contact{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", dateOfBirth=" + dateOfBirth +
                 ", address='" + address + '\'' +
                 ", country='" + country + '\'' +
+                ", phone='" + phone + '\'' +
                 ", age=" + age +
                 '}';
     }

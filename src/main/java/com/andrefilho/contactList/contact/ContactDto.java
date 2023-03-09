@@ -8,10 +8,14 @@ import java.time.LocalDate;
 
 public class ContactDto {
     private Long id;
-    @NotNull(message = "Name is mandatory.")
-    @NotBlank(message = "Name is mandatory.")
+    @NotNull(message = "First Name is mandatory.")
+    @NotBlank(message = "First Name is mandatory.")
     @Size(min = 3, max = 64)
-    private String name;
+    private String firstName;
+    @NotNull(message = "First Name is mandatory.")
+    @NotBlank(message = "First Name is mandatory.")
+    @Size(min = 3, max = 64)
+    private String lastName;
     @Email
     @NotBlank(message = "Email is mandatory.")
     private String email;
@@ -35,12 +39,20 @@ public class ContactDto {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getEmail() {
@@ -95,11 +107,14 @@ public class ContactDto {
     public String toString() {
         return "ContactDto{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", dateOfBirth=" + dateOfBirth +
                 ", address='" + address + '\'' +
                 ", country='" + country + '\'' +
+                ", phone='" + phone + '\'' +
+                ", age=" + age +
                 '}';
     }
 }

@@ -20,7 +20,8 @@
             </tr>
             <tr th:each="contact : ${contacts}">
                 <td th:text="${contact.id}"></td>
-                <td th:text="${contact.name}"></td>
+                <td th:text="${contact.firstName}"></td>
+                <td th:text="${contact.lastName}"></td>
                 <td><a class="btn btn-success" th:href="@{'/contacts/' + ${contact.id}}">View</a></td>
                 <td><a class="btn btn-warning" th:href="@{'/contacts/' + ${contact.id} + '/edit'}">Edit</a></td>
                 <td><a class="btn btn-danger" th:href="@{'/contacts/' + ${contact.id} + '/delete'}">Delete</a></td>

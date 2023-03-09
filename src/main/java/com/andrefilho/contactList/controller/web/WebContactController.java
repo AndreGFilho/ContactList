@@ -82,7 +82,7 @@ public class WebContactController {
 
         Contact savedContact = contactService.save(contactDtoToContact.convert(contactDto));
 
-        redirectAttributes.addFlashAttribute("lastAction", "Saved " + savedContact.getName());
+        redirectAttributes.addFlashAttribute("lastAction", "Saved " + savedContact.getFirstName());
 
         return "redirect:/contacts/" + savedContact.getId();
     }
@@ -101,7 +101,7 @@ public class WebContactController {
         Contact contact = contactService.getContact(id);
 
         contactService.delete(id);
-        redirectAttributes.addFlashAttribute("lastAction", "Deleted " + contact.getName());
+        redirectAttributes.addFlashAttribute("lastAction", "Deleted " + contact.getFirstName());
         return "redirect:/contacts";
     }
 
