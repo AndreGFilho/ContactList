@@ -74,7 +74,7 @@ public class WebContactController {
         return "contact/add-update";
     }
     @PostMapping(path = {"/", ""}, params = "action=save")
-    public String saveCustomer(@Valid @ModelAttribute ("contact")ContactDto contactDto, BindingResult bindingResult, RedirectAttributes redirectAttributes){
+    public String saveCustomer(@Valid @ModelAttribute("contact") ContactDto contactDto, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model){
         if (bindingResult.hasErrors()){
             return "contact/add-update";
         }
@@ -88,7 +88,6 @@ public class WebContactController {
 
     @PostMapping(path = {"/", ""}, params = "action=cancel")
     public String cancelSaveContact() {
-        // we could use an anchor tag in the view for this, but we might want to do something clever in the future here
         return "redirect:/contacts";
     }
     @RequestMapping(method = RequestMethod.GET, path = "/{id}/edit")

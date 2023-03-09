@@ -101,7 +101,7 @@ public class RestContactController {
 
         contactDto.setId(contactId);
 
-        contactService.updateContact(contactDtoToContact.convert(contactDto));
+        contactService.save(contactDtoToContact.convert(contactDto));
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -111,7 +111,7 @@ public class RestContactController {
             @PathVariable("id") Long contactId) {
 
         try {
-            contactService.deleteContact(contactId);
+            contactService.delete(contactId);
             return new ResponseEntity<>(HttpStatus.ACCEPTED);
 
         } catch (ContactNotFoundException e){
