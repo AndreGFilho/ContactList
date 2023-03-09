@@ -1,9 +1,10 @@
 package com.andrefilho.contactList.contact;
 
+import jakarta.validation.constraints.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
+
 import java.time.LocalDate;
-import javax.validation.constraints.*;
 
 public class ContactDto {
     private Long id;
@@ -16,7 +17,6 @@ public class ContactDto {
     private String email;
 
     @NotNull(message = "Date of Birth is mandatory.")
-    @NotBlank(message = "Date of Birth is mandatory.")
     @Past
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfBirth;

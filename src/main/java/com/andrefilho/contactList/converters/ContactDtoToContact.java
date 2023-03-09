@@ -3,9 +3,12 @@ package com.andrefilho.contactList.converters;
 import com.andrefilho.contactList.contact.Contact;
 import com.andrefilho.contactList.contact.ContactDto;
 import com.andrefilho.contactList.services.ContactService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
+
+
 
 @Component
 public class ContactDtoToContact implements Converter<ContactDto, Contact> {
@@ -18,7 +21,7 @@ public class ContactDtoToContact implements Converter<ContactDto, Contact> {
     }
 
     @Override
-    public Contact convert(ContactDto contactDto) {
+    public Contact convert(@Valid ContactDto contactDto) {
         Contact contact = (contactDto.getId() != null ? contactService.getContact(contactDto.getId()) : new Contact());
 
         contact.setName(contactDto.getName());
