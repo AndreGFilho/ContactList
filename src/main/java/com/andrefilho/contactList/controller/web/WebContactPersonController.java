@@ -18,7 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping(path = "/contacts")
-public class WebContactController {
+public class WebContactPersonController {
 
     private PersonService personService;
     private ContactPersonToContactPersonDto contactPersonToContactPersonDto;

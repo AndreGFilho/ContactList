@@ -1,8 +1,6 @@
 package com.andrefilho.contactList.controller.web;
 
 import com.andrefilho.contactList.exceptions.CustomExceptions;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ControllerAdvice;

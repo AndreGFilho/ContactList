@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(path = "/api")
-public class RestContactController {
+public class RestPersonController {
 
 
     private final PersonService personService;
@@ -39,7 +39,7 @@ public class RestContactController {
     }
 
     @Autowired
-    public RestContactController(PersonService personService) {
+    public RestPersonController(PersonService personService) {
         this.personService = personService;
     }
 

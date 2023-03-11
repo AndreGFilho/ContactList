@@ -110,6 +110,8 @@
         <div class="col-sm-3">
 <!--            <a class="btn btn-success" th:href="@{'/customer/' + ${customer.id} + '/recipient/add'}">New Recipient</a>-->
             <a class="btn btn-primary" th:href="@{/contacts/list}">Contact List</a>
+            <a class="btn btn-warning" th:href="@{'/contacts/' + ${contactPerson.id} + '/edit'}">Edit</a>
+            <a class="btn btn-danger" th:href="@{'/contacts/' + ${contactPerson.id} + '/delete'}">Delete</a>
         </div>
     </div>
     </body>
